@@ -58,14 +58,26 @@ var questionsArray = [
 ];
 //Step2: Create a function that will update the page
 function updatePage() {
-  mainTitle.textContent = questionsArray[currentIndex].title;
-  button1.textContent = questionsArray[currentIndex].button1[0];
-  button2.textContent = questionsArray[currentIndex].button2[0];
-  button3.textContent = questionsArray[currentIndex].button3[0];
-  button4.textContent = questionsArray[currentIndex].button4[0];
+  //update the page as long as we are not on the last question
+  if (currentIndex < questionsArray.length) {
+    mainTitle.textContent = questionsArray[currentIndex].title;
+    button1.textContent = questionsArray[currentIndex].button1[0];
+    button2.textContent = questionsArray[currentIndex].button2[0];
+    button3.textContent = questionsArray[currentIndex].button3[0];
+    button4.textContent = questionsArray[currentIndex].button4[0];
+  } else {
+    //if we've reached the last quesiton display "All Done"
+    startButton.setAttribute("style", "display:none");
+    buttonsDiv.setAttribute("style", "display: none");
+    pararapgh.setAttribute("style", "display:none");
+    mainTitle.textContent = "All Done!";
+    scoreString.setAttribute("style", "display:block");
+    numScore.textContent = score;
+    submitBox.setAttribute("style", "display: block");
+    //change this to make it into a local storage item and to listen for user input
+    initialsBox.textContent = "NL";
+  }
 }
-
-//current index var
 var currentIndex = 0;
 
 startButton.addEventListener("click", function () {
@@ -99,18 +111,13 @@ button4.addEventListener("click", function () {
   line.setAttribute("style", "display:block");
   answer.textContent = questionsArray[currentIndex].button4[1];
   currentIndex++;
-  console.log(currentIndex);
   updatePage();
 });
 
-//figure out what to do when you get to the last question:
-if (currentIndex == 4) {
-  startButton.setAttribute("style", "display:none");
-  pararapgh.setAttribute("style", "display:none");
-  mainTitle.textContent = "All Done!";
-  scoreString.setAttribute("style", "display:block");
-  numScore.textContent = score;
-  submitBox.setAttribute("style", "display: block");
-  //change this to make it into a local storage item and to listen for user input
-  initialsBox.textContent = "NL";
-}
+console.log(currentIndex);
+
+//Things to do:
+//1. Add the Timer
+//2. Make Sure the highest score button at the top left works
+//3. how to get to the High Scores page with 2 buttons
+// one button takes you to the beginnign and the other clears the all high scores
