@@ -12,7 +12,7 @@
            <div id="high-scores">
             <button class="high-scores-button">View High Scores</button>
         </div>
-        <div class="timer">Time: <span id="new-time"></span></div> 
+        <div class="timer">Time: <span id="new-time">0</span></div> 
         </div>
         
         <div class="start-container" >
@@ -30,7 +30,16 @@
                 <div id="line">___________________________________</div>
                 <div id="answer"></div>
                 <div class="final-score">Your Final Score is <span id="total-score"></span></div>
-                <div class="submit-form">Enter Initials: <span id="initials"></span></div>
+                <form class="submit-form">
+                    <div>
+                        <label for="initials">Enter your Initials: </label>
+                        <input id="initials" type="initials" name="initials"/>
+                    </div>    
+                        <div id="msg"></div>
+                        <button id="submit-button">Submit</button> 
+                </form> 
+
+
                 
             
         </div>
