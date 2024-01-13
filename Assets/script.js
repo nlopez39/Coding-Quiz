@@ -20,11 +20,13 @@ var menuBar = document.querySelector(".menu-bar");
 var highScoreCard = document.querySelector(".high-score-container");
 var highScoreButton = document.querySelector(".high-scores-button");
 var goBackButton = document.querySelector("#go-back");
+var clearScoresButton = document.querySelector("#clear-scores");
 
 //pseudo
 //step 1: create an array of question objects
 var currentIndex = 0;
 var score = 0;
+var highScores = [];
 var questionsArray = [
   {
     title: "Commonly Used Data Types Do not include",
@@ -34,14 +36,14 @@ var questionsArray = [
     button4: ["4.Numbers", "Wrong"],
   },
   {
-    title: "The Condition in an if/else statement is enclosed with _________ ",
+    title: "The Condition in an if/else statement is enclosed with _________. ",
     button1: ["1.Quotes", "Wrong"],
     button2: ["2.Curly Brackets", "Correct"],
     button3: ["3.Parenthesis", "Wrong"],
     button4: ["4.Square Brackets", "Wrong"],
   },
   {
-    title: "Arrays in JavaScript can be used to store _________ ",
+    title: "Arrays in JavaScript can be used to store _________. ",
     button1: ["1.Numbers and Strings", "Wrong"],
     button2: ["2.Other arrays", "Wrong"],
     button3: ["3.Booleans", "Wrong"],
@@ -49,7 +51,7 @@ var questionsArray = [
   },
   {
     title:
-      "String value must be enclosed within _________ when being assigned to values",
+      "String value must be enclosed within________when being assigned to values",
     button1: ["1.Commas", "Wrong"],
     button2: ["2.Curly Brackets", "Wrong"],
     button3: ["3.Quotes", "Correct"],
@@ -85,23 +87,59 @@ function updatePage() {
   }
 }
 //-----------------------Show the High Scores ----------------------------
+
 function showHighScores() {
   var menuBar = document.querySelector(".menu-bar");
   highScoreCard.setAttribute("style", "display:block");
   menuBar.setAttribute("style", "display:none");
   startContainer.setAttribute("style", "display:none");
+  //clear existing list items before appending new ones
+  highScoresList.innerHTML = "";
+  for (var i = 0; i < highScores.length; i++) {
+    var scorefromStorage = highScores[i].score;
+    var initialStorage = highScores[i].userInitials;
 
-  //create two buttons
+    var li = document.createElement("li");
+    li.textContent = initialStorage + "--" + scorefromStorage;
+    li.setAttribute("data-index", i);
+
+    highScoresList.appendChild(li);
+  }
 }
+function init() {
+  var storedItems = JSON.parse(localStorage.getItem("highScores"));
+
+  if (storedItems !== null) {
+    highScores = storedItems;
+  }
+
+  showHighScores();
+}
+//------------------------Clear Scores Function--------------------
+function clearScores() {
+  //empty the array of scores
+  highScores = [];
+
+  //save empty array to localStorage
+  localStorage.setItem("highScores", JSON.stringify(highScores));
+  //clear the highlistScores list on the page
+  highScoresList.innerHTML = "";
+
+  // Optionally, hide the high scores container
+  // highScoreCard.setAttribute("style", "display:none");
+}
+//-----------------------START AGain function ----------------------
+
 function startAgain() {
   score = 0;
+  timerEl.textContent = 0;
   startContainer.setAttribute("style", "display:block");
   line.setAttribute("style", "display:none");
   answer.setAttribute("style", "display:none");
   submitForm.setAttribute("style", "display:none");
-  mainTitle.textContent = "Coding Quiz";
+  mainTitle.textContent = "Coding Quiz Challenge";
   menuBar.setAttribute("style", "display:flex");
-  startButton.setAttribute("style", "display:block");
+  startButton.setAttribute("style", "display:block; margin:auto");
   pararapgh.setAttribute("style", "display:block");
   scoreString.setAttribute("style", "display:none");
   highScoreCard.setAttribute("style", "display:none");
@@ -195,9 +233,10 @@ button4.addEventListener("click", function () {
   penaltyApplied = false;
   updatePage();
 });
+var highScores;
 submitButton.addEventListener("click", function (event) {
-  showHighScores();
   event.preventDefault();
+  // showHighScores();
   var initials = document.querySelector("#initials");
 
   var highScoreObject = {
@@ -207,7 +246,7 @@ submitButton.addEventListener("click", function (event) {
 
   //save multiple highScoreObject in LocalStorage
   // 1. Retrieve existing high scores from local storage
-  var highScores;
+
   var storedHighScores = localStorage.getItem("highScores");
 
   if (storedHighScores) {
@@ -222,19 +261,20 @@ submitButton.addEventListener("click", function (event) {
 
   // Save the updated high scores back to local storage
   localStorage.setItem("highScores", JSON.stringify(highScores));
+  init();
 });
+
 highScoreButton.addEventListener("click", function () {
-  showHighScores();
+  init();
 });
+
 goBackButton.addEventListener("click", function () {
   startAgain();
 });
+clearScoresButton.addEventListener("click", function () {
+  clearScores();
+});
 
 //Things to do:
-//2. Make Sure the highest score button at the top left works
-// highScoresHereButton.eventListener("click", function){
-//   renderhighScores();
-//}
-//3. Output the  High Scores page with 2 buttons
-// one button takes you to the beginnign and the other clears the all high scores
-//
+//1. Add CSS
+//2. Write the README

@@ -1,6 +1,8 @@
+
 .start-container, .high-score-container, .start-game{
+   
     margin: auto;
-    width: 100%;
+    width: 800px;
     height: 100px;
     text-align: center;
 
