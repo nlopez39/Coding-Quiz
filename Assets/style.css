@@ -1,14 +1,15 @@
-.start-container{
+.start-container, .high-score-container, .start-game{
     margin: auto;
     width: 100%;
     height: 100px;
     text-align: center;
 
 }
-.start-container p {
+.start-container p, .start-game p{
     color: blue;
     
 }
+
 .menu-bar{
     margin: auto;
     display: flex;
@@ -17,6 +18,6 @@
     justify-content: space-between;
     /* float:right; */
 }
-.special-buttons, #line, .final-score, .submit-form{
+.special-buttons, #line, .final-score, .submit-form, .high-score-container{
     display: none;
 }

@@ -1,4 +1,5 @@
 var startContainer = document.querySelector(".start-container");
+var startGame = document.querySelector(".start-game");
 var pararapgh = document.querySelector("#paragraph");
 var startButton = document.querySelector(".start-quiz-button");
 var buttonsDiv = document.querySelector(".special-buttons");
@@ -14,10 +15,15 @@ var line = document.querySelector("#line");
 var answer = document.querySelector("#answer");
 var submitForm = document.querySelector(".submit-form");
 var submitButton = document.querySelector("#submit-button");
+var highScoresList = document.querySelector("#scores-list");
+var menuBar = document.querySelector(".menu-bar");
+var highScoreCard = document.querySelector(".high-score-container");
+var highScoreButton = document.querySelector(".high-scores-button");
+var goBackButton = document.querySelector("#go-back");
 
 //pseudo
 //step 1: create an array of question objects
-
+var currentIndex = 0;
 var score = 0;
 var questionsArray = [
   {
@@ -58,7 +64,7 @@ var questionsArray = [
     button4: ["4.Console Log", "Correct"],
   },
 ];
-//Step2: Create a function that will update the page
+//------------------------------Update the Page Function--------------------------------------------------------
 function updatePage() {
   //update the page as long as we are not on the last question
   if (currentIndex < questionsArray.length) {
@@ -76,43 +82,40 @@ function updatePage() {
     scoreString.setAttribute("style", "display:block");
     submitForm.setAttribute("style", "display: block");
     numScore.textContent = score;
-    submitButton.addEventListener("click", function (event) {
-      event.preventDefault();
-      var initials = document.querySelector("#initials");
-
-      var highScoreObject = {
-        score: score,
-        userInitials: initials.value,
-      };
-      // Retrieve existing high scores from local storage
-      var highScores;
-      var storedHighScores = localStorage.getItem("highScores");
-
-      if (storedHighScores) {
-        highScores = JSON.parse(storedHighScores);
-      } else {
-        //empty array is assigned to high scores
-        highScores = [];
-      }
-
-      // Add the new high score to the array
-      highScores.push(highScoreObject);
-
-      // Save the updated high scores back to local storage
-      localStorage.setItem("highScores", JSON.stringify(highScores));
-    });
   }
 }
-//render high scores either when the user clicks high score button or submit button
-// function renderHighScores() {
-//   //retrieve all scores from local storage and output them in the high scores page
-// }
+//-----------------------Show the High Scores ----------------------------
+function showHighScores() {
+  var menuBar = document.querySelector(".menu-bar");
+  highScoreCard.setAttribute("style", "display:block");
+  menuBar.setAttribute("style", "display:none");
+  startContainer.setAttribute("style", "display:none");
+
+  //create two buttons
+}
+function startAgain() {
+  score = 0;
+  startContainer.setAttribute("style", "display:block");
+  line.setAttribute("style", "display:none");
+  answer.setAttribute("style", "display:none");
+  submitForm.setAttribute("style", "display:none");
+  mainTitle.textContent = "Coding Quiz";
+  menuBar.setAttribute("style", "display:flex");
+  startButton.setAttribute("style", "display:block");
+  pararapgh.setAttribute("style", "display:block");
+  scoreString.setAttribute("style", "display:none");
+  highScoreCard.setAttribute("style", "display:none");
+  currentIndex = 0;
+}
+
+//--------------------------Timer Global Variables -------------------------------
+var penaltyApplied = false;
 var timeInterval;
-// Timer that counts down from 45
+//---------------------------Timer function -------------------------------------
 function countdown() {
   var timeLeft = 74;
-  //this will keep track of when the user has clicked wrong
-  var penaltyApplied = false;
+  // //this will keep track of when the user has clicked wrong
+  // var penaltyApplied = false;
   // Use the `setInterval()` method to call a function to be executed every 1000 milliseconds
   timeInterval = setInterval(function () {
     // As long as the `timeLeft` is greater than 1
@@ -124,6 +127,7 @@ function countdown() {
         //decrement by 10
         timeLeft -= 10;
         penaltyApplied = true;
+        console.log("Penalty applied");
       } else if (answer.textContent == "Correct") {
         penaltyApplied = false;
       }
@@ -137,8 +141,13 @@ function countdown() {
     }
   }, 1000);
 }
-var currentIndex = 0;
-
+//-------------------Calculate Score-------------------
+function calculateScore() {
+  if (answer.textContent == "Correct") {
+    score += 10;
+  }
+}
+//----------------------------------------------------EVENT LISTENERS ------------------------------------------------------------------------------
 startButton.addEventListener("click", function () {
   timerEl.textContent = 75;
   countdown();
@@ -151,34 +160,77 @@ startButton.addEventListener("click", function () {
 
 button1.addEventListener("click", function () {
   line.setAttribute("style", "display:block");
+  answer.setAttribute("style", "display:block");
   answer.textContent = questionsArray[currentIndex].button1[1];
+  calculateScore();
   currentIndex++;
+  penaltyApplied = false;
   updatePage();
 });
 
 button2.addEventListener("click", function () {
   line.setAttribute("style", "display:block");
+  answer.setAttribute("style", "display:block");
   answer.textContent = questionsArray[currentIndex].button2[1];
+  calculateScore();
   currentIndex++;
+  penaltyApplied = false;
   updatePage();
 });
 button3.addEventListener("click", function () {
   line.setAttribute("style", "display:block");
+  answer.setAttribute("style", "display:block");
   answer.textContent = questionsArray[currentIndex].button3[1];
+  calculateScore();
   currentIndex++;
+  penaltyApplied = false;
   updatePage();
 });
 button4.addEventListener("click", function () {
   line.setAttribute("style", "display:block");
+  answer.setAttribute("style", "display:block");
   answer.textContent = questionsArray[currentIndex].button4[1];
+  calculateScore();
   currentIndex++;
+  penaltyApplied = false;
   updatePage();
 });
+submitButton.addEventListener("click", function (event) {
+  showHighScores();
+  event.preventDefault();
+  var initials = document.querySelector("#initials");
 
-console.log(currentIndex);
+  var highScoreObject = {
+    score: score,
+    userInitials: initials.value,
+  };
+
+  //save multiple highScoreObject in LocalStorage
+  // 1. Retrieve existing high scores from local storage
+  var highScores;
+  var storedHighScores = localStorage.getItem("highScores");
+
+  if (storedHighScores) {
+    highScores = JSON.parse(storedHighScores);
+  } else {
+    //empty array is assigned to high scores
+    highScores = [];
+  }
+
+  // Add the new high score to the array
+  highScores.push(highScoreObject);
+
+  // Save the updated high scores back to local storage
+  localStorage.setItem("highScores", JSON.stringify(highScores));
+});
+highScoreButton.addEventListener("click", function () {
+  showHighScores();
+});
+goBackButton.addEventListener("click", function () {
+  startAgain();
+});
 
 //Things to do:
-
 //2. Make Sure the highest score button at the top left works
 // highScoresHereButton.eventListener("click", function){
 //   renderhighScores();
