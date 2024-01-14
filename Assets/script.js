@@ -14,6 +14,7 @@ var numScore = document.querySelector("#total-score");
 var line = document.querySelector("#line");
 var answer = document.querySelector("#answer");
 var submitForm = document.querySelector(".submit-form");
+var initials = document.querySelector("#initials");
 var submitButton = document.querySelector("#submit-button");
 var highScoresList = document.querySelector("#scores-list");
 var menuBar = document.querySelector(".menu-bar");
@@ -66,19 +67,22 @@ var questionsArray = [
     button4: ["4.Console Log", "Correct"],
   },
 ];
+var onQuiz = false;
 //------------------------------Update the Page Function--------------------------------------------------------
 function updatePage() {
   //update the page as long as we are not on the last question
-  if (currentIndex < questionsArray.length) {
+  if (timeLeft > 0 && currentIndex < questionsArray.length) {
+    onQuiz = true;
     mainTitle.textContent = questionsArray[currentIndex].title;
     button1.textContent = questionsArray[currentIndex].button1[0];
     button2.textContent = questionsArray[currentIndex].button2[0];
     button3.textContent = questionsArray[currentIndex].button3[0];
     button4.textContent = questionsArray[currentIndex].button4[0];
-  } else {
-    //if we've reached the last quesiton display "All Done"
+  } else if (timeLeft <= 0 || currentIndex == questionsArray.length) {
+    //if we've reached the last quesiton display "All Done" or the timer is done
+    onQuiz = false;
     startButton.setAttribute("style", "display:none");
-    buttonsDiv.setAttribute("style", "display: none");
+    buttonsDiv.setAttribute("style", "display:none");
     pararapgh.setAttribute("style", "display:none");
     mainTitle.textContent = "All Done!";
     scoreString.setAttribute("style", "display:block");
@@ -95,12 +99,15 @@ function showHighScores() {
   startContainer.setAttribute("style", "display:none");
   //clear existing list items before appending new ones
   highScoresList.innerHTML = "";
+  var counter = 0;
   for (var i = 0; i < highScores.length; i++) {
     var scorefromStorage = highScores[i].score;
     var initialStorage = highScores[i].userInitials;
 
     var li = document.createElement("li");
-    li.textContent = initialStorage + "--" + scorefromStorage;
+    counter++;
+    li.textContent =
+      counter + " . " + initialStorage + " - " + scorefromStorage;
     li.setAttribute("data-index", i);
 
     highScoresList.appendChild(li);
@@ -133,6 +140,8 @@ function clearScores() {
 function startAgain() {
   score = 0;
   timerEl.textContent = 0;
+  timeLeft = 74;
+
   startContainer.setAttribute("style", "display:block");
   line.setAttribute("style", "display:none");
   answer.setAttribute("style", "display:none");
@@ -149,15 +158,15 @@ function startAgain() {
 //--------------------------Timer Global Variables -------------------------------
 var penaltyApplied = false;
 var timeInterval;
+var timeLeft = 74;
 //---------------------------Timer function -------------------------------------
 function countdown() {
-  var timeLeft = 74;
   // //this will keep track of when the user has clicked wrong
-  // var penaltyApplied = false;
+
   // Use the `setInterval()` method to call a function to be executed every 1000 milliseconds
   timeInterval = setInterval(function () {
     // As long as the `timeLeft` is greater than 1
-    if (timeLeft > 1 && currentIndex < questionsArray.length) {
+    if (timeLeft >= 0 && currentIndex < questionsArray.length) {
       // Set the `textContent` of `timerEl` to show the remaining seconds
       timerEl.textContent = timeLeft;
       //if user is wrong but doesn't have a penalty already then apply a penalty
@@ -173,9 +182,15 @@ function countdown() {
       timeLeft--;
     } else {
       // Once `timeLeft` gets to 0, set `timerEl` to an empty string
-      timerEl.textContent = timeLeft;
+      if (timeLeft > 0) {
+        timerEl.textContent = timeLeft;
+      } else {
+        timerEl.textContent = 0;
+      }
       // Use `clearInterval()` to stop the timer
       clearInterval(timeInterval);
+      console.log(timeLeft);
+      updatePage();
     }
   }, 1000);
 }
@@ -190,7 +205,7 @@ startButton.addEventListener("click", function () {
   timerEl.textContent = 75;
   countdown();
   mainTitle.textContent = questionsArray[currentIndex].title;
-  buttonsDiv.setAttribute("style", "display:block");
+  buttonsDiv.setAttribute("style", "display:flex");
   startButton.setAttribute("style", "display:none");
   pararapgh.setAttribute("style", "display:none");
   updatePage();
@@ -266,6 +281,10 @@ submitButton.addEventListener("click", function (event) {
 
 highScoreButton.addEventListener("click", function () {
   init();
+  if (onQuiz) {
+    clearInterval(timeInterval);
+    buttonsDiv.setAttribute("style", "display:none");
+  }
 });
 
 goBackButton.addEventListener("click", function () {

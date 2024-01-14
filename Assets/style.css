@@ -1,25 +1,112 @@
-
-.start-container, .high-score-container, .start-game{
+.start-container, .start-game{
    
     margin: auto;
     width: 800px;
     height: 100px;
-    text-align: center;
+    text-align:left;
 
+}
+.high-score-container{
+    margin: auto;
+    margin-top: 100px;
+    width: 50%;
+    padding: 10px;
 }
 .start-container p, .start-game p{
     color: blue;
+    font-size: 20px;
+    text-align: left;
     
 }
-
+.start-quiz-button,#go-back, #clear-scores {
+    background-color: purple;
+    border: none;
+    color: white;
+    margin-bottom: 10px;
+    padding: 15px 20px; 
+    font-size: 15px;
+    border-radius: 15px;
+}
+.high-scores-button{
+    background-color: transparent;
+    color: purple;
+    border: 0; 
+}
 .menu-bar{
-    margin: auto;
+    margin-top: 20px;
+    margin-left: 30px;
+    margin-right: 30px; 
+    /* margin: auto; */
     display: flex;
     flex-direction: row;
     align-items: end;
     justify-content: space-between;
     /* float:right; */
 }
-.special-buttons, #line, .final-score, .submit-form, .high-score-container{
-    display: none;
+
+.special-buttons{
+    display:flex;
+    flex-direction: column;
+    align-items: left;
+    text-align: left;
+}
+.button-1, .button-2, .button-3, .button-4{
+    background-color: purple;
+    border: none;
+    color: white;
+    margin-bottom: 10px;
+    padding: 15px 20px; 
+    width: 400px;
+    height: 50px;
+    text-align: left;
+    font-size: 16px;
+    border-radius: 24px;
+
+}
+.button-1:hover, .button-2:hover, .button-3:hover, .button-4:hover, .start-quiz-button:hover , .high-scores-button:hover,
+#submit-button:hover,#go-back:hover, #clear-scores:hover {
+    background-color:violet;
+}
+#line{
+    color: rgba(128, 128, 128, 0.725);
+
+}
+#answer{
+    color:rgba(128, 128, 128, 0.725);
+    font-size: 24px;
+}
+li{
+ background-color:rgb(226, 189, 226);
+ font-size: 24px;
+ list-style-type: none;
+ padding: 5px; 
+
+
+}
+.submit-form label{
+    font-size: 24px;
+    margin-bottom: 10px;
+
+}
+.final-score {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+#submit-button{
+   font-size: 16px;
+   width: 80px;
+   height: 40px;
+   text-align: center;
+   background-color: purple;
+    border: none;
+    color: white;
+    border-radius: 15px;
+   
+ 
+    
+}
+#initials{
+    border:solid 1px green;
+    
+   
 }

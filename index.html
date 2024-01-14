@@ -21,29 +21,30 @@
             <p id="paragraph">Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will 
                 penalize your score/time by 10-seconds! 
             </p>
-            <button class="start-quiz-button">Start Quiz</button>
+            <button class="start-quiz-button" style="display:block; margin:auto">Start Quiz</button>
     
-            
-            <div class="special-buttons">
+  
+            <div class="special-buttons" style="display:none">
                 <button class="button-1"></button>
                 <button class="button-2"></button>
                 <button class="button-3"></button>
                 <button class="button-4"></button>
             </div>    
-                <div id="line">___________________________________</div>
-                <div id="answer"></div>
-                <div class="final-score">Your Final Score is <span id="total-score"></span></div>
-                <form class="submit-form">
+            
+                <div class="final-score" style="display:none">Your Final Score is <span id="total-score"></span></div>
+                <form class="submit-form" style="display:none">
                     <div>
                         <label for="initials">Enter your Initials: </label>
                         <input id="initials" type="initials" name="initials"/>
-                    </div>    
-                        <div id="msg"></div>
                         <button id="submit-button">Submit</button> 
-                </form>             
+                    </div>    
+                        
+                </form>   
+                <div id="line" style="display:none">_________________________________________</div>
+                <div id="answer" style="display:none" ></div>          
         </div>
-        <div class="high-score-container">
-            <h1>HighScores:</h1>
+        <div class="high-score-container" style="display:none">
+            <h1>High Scores</h1>
             <ul id="scores-list"></ul>
             <button id="go-back">Go Back</button>
             <button id="clear-scores">Clear Scores</button>
