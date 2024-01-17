@@ -13,7 +13,7 @@ This lightweight coding quiz app challenges users with 5 coding questions, each 
 3. **Save Score**: Submit your score to the scoreboard at the end of the test.
 4. **Look at scores**: Explore previous scores on the 'View High Scores' page to compare and track your performance.
 
-   ![Coding-Quiz](Assets/password-generator.gif)
+   ![Coding-Quiz](Assets/CodingGif.gif)
 
 ## Installation
 
