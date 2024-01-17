@@ -13,7 +13,7 @@ This lightweight coding quiz app challenges users with 5 coding questions, each 
 3. **Save Score**: Submit your score to the scoreboard at the end of the test.
 4. **Look at scores**: Explore previous scores on the 'View High Scores' page to compare and track your performance.
 
-   ![Password-generatorGif](Assets/password-generator.gif)
+   ![Coding-Quiz](Assets/password-generator.gif)
 
 ## Installation
 
@@ -58,7 +58,11 @@ Once the installation is complete, you can run the project:
 
 ## Credits
 
-Nicholas Gambino (Teacher Assistant) : Told me to create the questionsArray
+Nicholas Gambino (Teacher Assistant) : Told me to create the questionsArray object
+https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage
+https://developer.mozilla.org/en-US/docs/Web/API/setInterval
+https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model
+https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener
 
 ## License
 
