@@ -110,3 +110,41 @@ li{
     
    
 }
+@media (max-width: 992px) {
+    .start-container, .start-game {
+        width: 100%;
+    }
+
+    .high-score-container {
+        width: 100%;
+    }
+
+    .menu-bar {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .button-1, .button-2, .button-3, .button-4 {
+        width: 100%;
+    }
+}
+@media (max-width: 767px) {
+    .start-container, .start-game {
+        width: 100%;
+    }
+
+    .high-score-container {
+        width: 100%;
+    }
+
+    .menu-bar {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .button-1, .button-2, .button-3, .button-4 {
+        width: 100%;
+    }
+}
